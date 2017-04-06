@@ -68,7 +68,7 @@ class BinarySearchTree : public Drawable
           void mouseClicked(int x, int y);
 };
 
-// THIS CHECKS IF YOU HAVE A SORT TREE? OR DID RAMESH MEAN SEARCH?
+// THIS CHECKS IF YOU HAVE A WHAT TREE?
 template < class T >
 void BinarySearchTree<T>::remove(String* sk)
 {
