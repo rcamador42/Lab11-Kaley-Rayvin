@@ -362,7 +362,7 @@ T** BinarySearchTree<T>::toArray()
      while(iter->hasNext())
      {
           T* item = iter->next();
-          items[i] = item;
+          sorted_array[i] = item;
           i++;
      }
 
