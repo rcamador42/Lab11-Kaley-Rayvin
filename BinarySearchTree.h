@@ -1,5 +1,8 @@
 //**************************************************
+//   KALEY WHITE
+//   AND
 //   RAYVIN CARL AMADOR
+//
 //   CSC 2111 LAB 11: BST & TREE SORT
 //   SPRING 2017
 //   DR. DAVID BROWN
@@ -342,6 +345,29 @@ T** BinarySearchTree<T>::toArray()
 
      BinaryTreeIterator<T>* iter = iterator();
      iter->setInOrder();
+
+     //------------------------
+     // CREATE A NEW ARRAY
+     //------------------------
+     T** sorted_array = new T*[sze];
+
+     //------------------------
+     // COUNTER VARIABLE
+     //------------------------
+     int i = 0;
+
+     //------------------------
+     // IN ORDER TRAVERSAL
+     //------------------------
+     while(iter->hasNext())
+     {
+          T* item = iter->next();
+          items[i] = item;
+          i++;
+     }
+
+     delete iter;
+     return sorted_array;
 
      //******************************************
      //   (END) TO HERE
