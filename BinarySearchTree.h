@@ -6,6 +6,8 @@
 //   CSC 2111 LAB 11: BST & TREE SORT
 //   SPRING 2017
 //   DR. DAVID BROWN
+//
+//   TABS = 5 SPACES
 //**************************************************
 #if !defined (BINARYSEARCHTREE_H)
 #define BINARYSEARCHTREE_H
@@ -68,7 +70,7 @@ class BinarySearchTree : public Drawable
           void mouseClicked(int x, int y);
 };
 
-// THIS CHECKS IF YOU HAVE A SORT TREE
+// THIS CHECKS IF
 template < class T >
 void BinarySearchTree<T>::remove(String* sk)
 {
@@ -84,6 +86,9 @@ void BinarySearchTree<T>::remove(String* sk)
      // WANT TO REMOVE
      //-------------------
      root = removeItem(root, sk);
+
+     removeNode(root);
+     sze--; // NEED THIS RIGHT???????????????????????????????????????????????????????????????????????????????????????????????????????????????????????
      
      //******************************************
      //   (END) TO HERE
@@ -99,93 +104,58 @@ TreeNode<T>* BinarySearchTree<T>::removeItem(TreeNode<T>* tNode, String* sk)
      //   (START) ADD OWN CODE FROM HERE
      //******************************************
 
-     //-------------------
-     // FIRST FIND OUT
-     // IF WHAT WE'RE 
-     // WORKING WITH HAS
-     // KIDS
-     //-------------------
-     TreeNode<T>* left = tNode->getLeft();
-     TreeNode<T>* right = tNode->getRight();
-
-     if (left == NULL && right == NULL) 
+  // NEED THIS????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????
+  // CHECK IF tNode IS NULL FIRST
+     if(tNode == NULL)
      {
-          //-------------------
-          // THEN THIS IS OUR
-          // EASY CASE
-          //-------------------
-          delete tNode;
           return NULL;
      }
-     else if(left == NULL)
+     
+
+     T* itemData = tNode->getItem();
+     // DO WE ALSO NEED TO GET THE sk
+     int compareValue = (*compare_keys)(sk, itemData);
+     //------------------------
+     // sk = CD Title 1
+     // itemData = CD Title 2
+     //------------------------
+
+     if(compareValue == 0)
      {
-          //-------------------
-          // IN THIS CASE RIGHT
-          // IS NOT NULL
-          //-------------------
-          delete tNode;
-          return right;
+      //------------------------
+          // compareValue IS 0 IF
+          // sk and itemData are 
+          // equal
+          //------------------------
+
+      return tNode;
+      //------------------------
+          // JUST RETURN tNode 
+          // BECAUSE IT'S THE SAME
+          //------------------------ 
      }
-     else if(right == NULL)
+     else if(compareValue < 0)
      {
-          //-------------------
-          // IN THIS CASE LEFT
-          // IS NOT NULL
-          //-------------------
-          delete tNode;
-          return left;
+      //--------------------------
+          // compareValue IS < 0 IF
+          // OF sk COMES BEFORE
+          // itemData
+          //--------------------------
+      TreeNode<T>* subtree = removeItem(tNode->getLeft(), sk);
+          tNode = tNode->setLeft(subtree);
      }
-     else 
+     else // THIS IS if(compareValue > 0)
      {
-          //------------------------------------------------
-          // THIS IS THE HARD CASE WHERE THE tNode HAS
-          // 2 KIDS. NEED TO FIND THE IN ORDER SUCCESSOR
-          //------------------------------------------------
-          //
-          // STEPS
-          //------------------------------------------------
-          // 1. GET THE DATA FORM THE IN ORDER SUCCESSOR
-          // 2. OVERWRITE WHAT I AM REPLACING (tNode) 
-          //    WITH THE IN ORDER SUCCESSOR
-          // 3. REMOVE THE NODE WITH THE IN ORDER SUCCESSOR
-          //------------------------------------------------
-
-          //-------------------
-          // DOES NOT NEED TO
-          // BE RECURSIVE, IT
-          // CAN JUST LOOP
-          // BECAUSE I DON'T
-          // CARE ABOUT THE
-          // MIDDLE PARTS
-          //
-          // left_most IS THE
-          // IN ORDER SUCC
-          //-------------------
-          T* left_most = findLeftMost(right); 
-
-          //-------------------
-          // NOW I HAVE TO SAVE
-          // THAT DATA.
-          // OVERWRITE THE
-          // ORIGINAL 
-          // ROOT (tNode)
-          //-------------------
-          tNode->setItem(left_most);
-
-          //-------------------
-          // GO BACK DOWN TO
-          // THE IN ORDER SUCC
-          // AND REMOVE.
-          //
-          // I ALSO HAVE TO
-          // WORRY ABOUT
-          // CHANGING LINKS
-          //-------------------
-          TreeNode<T>* subtree = removeLeftMost(right);
-          tNode->setRight(subtree);
-
-          return tNode;
+      //--------------------------
+          // compareValue IS > 0 IF
+          // itemData COMES BEFORE sk
+          //--------------------------
+      TreeNode<T>* subtree = removeItem(tNode->getRight(), sk);
+          tNode = tNode->setRight(subtree);
      }
+
+     // PASS BACK TO REMOVE FUNCTION, INTO THE ROOT VARIABLE
+     return tNode;
 
      //******************************************
      //   (END) TO HERE
@@ -221,7 +191,55 @@ TreeNode<T>* BinarySearchTree<T>::removeNode(TreeNode<T>* tNode)
           //   (START) ADD OWN CODE FROM HERE
           //******************************************
 
+          //------------------------------------------------
+          // THIS IS THE HARD CASE WHERE THE tNode HAS
+          // 2 KIDS. NEED TO FIND THE IN ORDER SUCCESSOR
+          //------------------------------------------------
+          //
+          // STEPS
+          //------------------------------------------------
+          // 1. GET THE DATA FORM THE IN ORDER SUCCESSOR
+          // 2. OVERWRITE WHAT I AM REPLACING (tNode) 
+          //    WITH THE IN ORDER SUCCESSOR
+          // 3. REMOVE THE NODE WITH THE IN ORDER SUCCESSOR
+          //------------------------------------------------
 
+          //-------------------
+          // DOES NOT NEED TO
+          // BE RECURSIVE, IT
+          // CAN JUST LOOP
+          // BECAUSE I DON'T
+          // CARE ABOUT THE
+          // MIDDLE PARTS
+          //
+          // left_most IS THE
+          // IN ORDER SUCC
+          //-------------------
+          T* left_most = findLeftMost(tNode->getRight()); 
+
+          //-------------------
+          // NOW I HAVE TO SAVE
+          // THAT DATA.
+          // OVERWRITE THE
+          // ORIGINAL 
+          // ROOT (tNode)
+          //-------------------
+          tNode->setItem(left_most);
+
+          //-------------------
+          // GO BACK DOWN TO
+          // THE IN ORDER 
+          // SUCCESSOR
+          // AND REMOVE.
+          //
+          // I ALSO HAVE TO
+          // WORRY ABOUT
+          // CHANGING LINKS
+          //-------------------
+          TreeNode<T>* subtree = removeLeftMost(tNode->getRight());
+          tNode->setRight(subtree);
+
+          return tNode;
 
           //******************************************
           //   (END) TO HERE
@@ -255,7 +273,7 @@ T* BinarySearchTree<T>::findLeftMost(TreeNode<T>* tNode)
      //-------------------
      while(tNode->getLeft() != NULL)
      {
-          tnode = tNode->getLeft();
+          tNode = tNode->getLeft();
      }
 
      //-------------------
@@ -343,13 +361,18 @@ T** BinarySearchTree<T>::toArray()
      //   (START) ADD OWN CODE FROM HERE
      //******************************************
 
-     BinaryTreeIterator<T>* iter = iterator();
-     iter->setInOrder();
-
-     //------------------------
+  //------------------------
      // CREATE A NEW ARRAY
      //------------------------
      T** sorted_array = new T*[sze];
+
+     BinaryTreeIterator<T>* iter = BinarySearchTree::iterator();
+
+     //------------------------
+     // SETS IT IN INORDER
+     // TRAVERSAL
+     //------------------------
+     iter->setInorder();
 
      //------------------------
      // COUNTER VARIABLE
@@ -362,7 +385,7 @@ T** BinarySearchTree<T>::toArray()
      while(iter->hasNext())
      {
           T* item = iter->next();
-          items[i] = item;
+          sorted_array[i] = item;
           i++;
      }
 
@@ -419,46 +442,20 @@ T** BinarySearchTree<T>::treeSort(T** items, int num_itemss, int (*comp_items) (
      //------------------------
      // DIRECTLY PULL FROM THE
      // ORIGINAL UNSORTED
-     // ARRAY AND INSERT THEM. 
+     // ARRAY AND INSERT THEM
+     // TO THE TREE 
      //------------------------
      for(int i = 0; i < num_itemss; i++)
      {
-          BinarySearchTree->insert(items[i]);
+          binary_search_tree->insert(items[i]);
      }
 
-     //------------------------
-     // THEN ASK THE TREE FOR
-     // THE ITERATOR
-     //
-     // HAVE TO ASK FOR IT
-     // BECAUSE WHAT BINARY
-     // TREE ITERATOR NEEDS
-     // IS TO KNOW THE ENTRY
-     // POINT INTO THE TREE.
-     // IT'S PRIVATE
-     // ORDER (n)
-     //------------------------
-     BinaryTreeIterator<T>* iter = binary_search_tree->iterator();
-
-     //------------------------
-     // THEN WE DO AN IN ORDER 
-     // TRAVERSAL. NEED A 
-     // COUNTER SO THAT WE CAN 
-     // INCREMENT THE INDEX 
-     // THAT WE'RE PLACING THE 
-     // ITEMS IN AS THEY COME  
-     // OUT OF THE ITERATOR
-     //------------------------
-     int i = 0;
-     while(iter->hasNext())
-     {
-          T* item = iter->next();
-          items[i] = item;
-          i++;
-     }
-
-     delete iter;
+     /*
+    T** sorted_array = binary_search_tree->toArray
      delete binary_search_tree;
+  */
+  
+     return binary_search_tree->toArray();
 
      //******************************************
      //   (END) TO HERE
