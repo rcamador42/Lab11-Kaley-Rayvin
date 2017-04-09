@@ -70,7 +70,11 @@ class BinarySearchTree : public Drawable
           void mouseClicked(int x, int y);
 };
 
+<<<<<<< HEAD
 // THIS CHECKS IF
+=======
+// THIS CHECKS IF YOU HAVE A WHAT TREE?
+>>>>>>> 66bdfd7fb3a9c8e3476ebc7b6f17098da0891fb0
 template < class T >
 void BinarySearchTree<T>::remove(String* sk)
 {
