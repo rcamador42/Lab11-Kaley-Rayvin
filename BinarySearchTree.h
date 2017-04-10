@@ -2,7 +2,8 @@
 //   KALEY WHITE
 //   AND
 //   RAYVIN CARL AMADOR
-//
+//   
+//   APRIL 6, 2017
 //   CSC 2111 LAB 11: BST & TREE SORT
 //   SPRING 2017
 //   DR. DAVID BROWN
@@ -70,11 +71,7 @@ class BinarySearchTree : public Drawable
           void mouseClicked(int x, int y);
 };
 
-<<<<<<< HEAD
 // THIS CHECKS IF
-=======
-// THIS CHECKS IF YOU HAVE A WHAT TREE?
->>>>>>> 66bdfd7fb3a9c8e3476ebc7b6f17098da0891fb0
 template < class T >
 void BinarySearchTree<T>::remove(String* sk)
 {
@@ -108,8 +105,8 @@ TreeNode<T>* BinarySearchTree<T>::removeItem(TreeNode<T>* tNode, String* sk)
      //   (START) ADD OWN CODE FROM HERE
      //******************************************
 
-     // NEED THIS????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????
-     // CHECK IF tNode IS NULL FIRST
+  // NEED THIS????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????
+  // CHECK IF tNode IS NULL FIRST
      if(tNode == NULL)
      {
           return NULL;
@@ -126,21 +123,21 @@ TreeNode<T>* BinarySearchTree<T>::removeItem(TreeNode<T>* tNode, String* sk)
 
      if(compareValue == 0)
      {
-          //------------------------
+      //------------------------
           // compareValue IS 0 IF
           // sk and itemData are 
           // equal
           //------------------------
 
       return tNode;
-          //------------------------
+      //------------------------
           // JUST RETURN tNode 
           // BECAUSE IT'S THE SAME
           //------------------------ 
      }
      else if(compareValue < 0)
      {
-          //--------------------------
+      //--------------------------
           // compareValue IS < 0 IF
           // OF sk COMES BEFORE
           // itemData
@@ -150,7 +147,7 @@ TreeNode<T>* BinarySearchTree<T>::removeItem(TreeNode<T>* tNode, String* sk)
      }
      else // THIS IS if(compareValue > 0)
      {
-          //--------------------------
+      //--------------------------
           // compareValue IS > 0 IF
           // itemData COMES BEFORE sk
           //--------------------------
@@ -365,7 +362,7 @@ T** BinarySearchTree<T>::toArray()
      //   (START) ADD OWN CODE FROM HERE
      //******************************************
 
-     //------------------------
+  //------------------------
      // CREATE A NEW ARRAY
      //------------------------
      T** sorted_array = new T*[sze];
@@ -455,9 +452,9 @@ T** BinarySearchTree<T>::treeSort(T** items, int num_itemss, int (*comp_items) (
      }
 
      /*
-     T** sorted_array = binary_search_tree->toArray
+    T** sorted_array = binary_search_tree->toArray
      delete binary_search_tree;
-     */
+  */
   
      return binary_search_tree->toArray();
 
